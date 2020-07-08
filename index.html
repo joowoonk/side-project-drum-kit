@@ -88,35 +88,43 @@
     <audio data-key="219" src="sounds/pig3.mp3"></audio>
     <audio data-key="221" src="sounds/Morning-rooster-sound.mp3"></audio>
     <script>
+      let keys = document.querySelectorAll(".key");
+
+keys.forEach(key => {
+  key.addEventListener("click", function(e) {
+    playSound(true, e);
+  });
+  key.addEventListener("transitionend", removeTransition)});
+
+window.addEventListener("keydown", function(e) {
+  playSound(false, e);
+});
+
+function playSound(isClick, e) {
+  let audio;
+  
+  if (isClick) {
+    
+  let target = e.currentTarget;
+  target.classList.add("playing");
+  audio = document.querySelector(`audio[data-key="${target.dataset.key}"]`);
+    
+  } else {
+    
+  console.log(e.keyCode);
+  let key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+  key.classList.add("playing")
+  audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+  }
+  audio.currentTime = 0;
+  audio.play();
+}
+
+
       function removeTransition(e) {
         if (e.propertyName !== "transform") return;
         e.target.classList.remove("playing");
       }
-
-      function playSound(e) {
-        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-        const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
-        if (!audio) return;
-
-        key.classList.add("playing");
-        audio.currentTime = 0;
-        audio.play();
-      }
-
-      const keys = Array.from(document.querySelectorAll(".key"));
-      keys.forEach((key) =>
-        key.addEventListener("transitionend", removeTransition)
-      );
-      window.addEventListener("keydown", playSound);
-      const recorder = document.getElementById("recorder");
-      const player = document.getElementById("player");
-
-      recorder.addEventListener("change", function (e) {
-        const file = e.target.files[0];
-        const url = URL.createObjectURL(file);
-        // Do something with the audio file.
-        player.src = url;
-      });
     </script>
   </body>
 </html>
