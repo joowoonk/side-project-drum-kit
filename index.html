@@ -5,9 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JS Drum Kit</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      href="/your-path-to-fontawesome/css/fontawesome.css"
+      rel="stylesheet"
+    />
+    <link href="/your-path-to-fontawesome/css/brands.css" rel="stylesheet" />
+    <link href="/your-path-to-fontawesome/css/solid.css" rel="stylesheet" />
   </head>
 
   <body>
+    <h5>Find easter eggs: animal sounds are available</h5>
+    <div class="title-card">
+      <h1>YOUR MUSIC ROOM</h1>
+      <p>Canon D Major - Free Copy Right</p>
+      <audio
+        class="canon"
+        id="player"
+        src="sounds/Canon in D Major.mp3"
+        controls
+      ></audio>
+
+    </div>
     <div class="keys">
       <div data-key="65" class="key">
         <kbd>A</kbd>
@@ -46,7 +64,14 @@
         <span class="sound">tink</span>
       </div>
     </div>
+    <div data-key="79"></div>
+    <div data-key="80"></div>
+      <div data-key="219"></div>
+      <div data-key="221"></div>
 
+      <!-- <kbd>P</kbd> -->
+      <!-- <span class="sound">horse</span> -->
+    </div>
     <audio data-key="65" src="sounds/clap.wav"></audio>
     <audio data-key="83" src="sounds/hihat.wav"></audio>
     <audio data-key="68" src="sounds/kick.wav"></audio>
@@ -56,7 +81,10 @@
     <audio data-key="74" src="sounds/snare.wav"></audio>
     <audio data-key="75" src="sounds/tom.wav"></audio>
     <audio data-key="76" src="sounds/tink.wav"></audio>
-
+    <audio data-key="79" src="sounds/Cow-Moo-D-www.fesliyanstudios.com.mp3"></audio>
+    <audio data-key="80" src="sounds/horse.ogv"></audio>
+    <audio data-key="219" src="sounds/pig3.mp3"></audio>
+    <audio data-key="221" src="sounds/Morning-rooster-sound.mp3"></audio>
     <script>
       function removeTransition(e) {
         if (e.propertyName !== "transform") return;
@@ -78,6 +106,15 @@
         key.addEventListener("transitionend", removeTransition)
       );
       window.addEventListener("keydown", playSound);
+      const recorder = document.getElementById("recorder");
+      const player = document.getElementById("player");
+
+      recorder.addEventListener("change", function (e) {
+        const file = e.target.files[0];
+        const url = URL.createObjectURL(file);
+        // Do something with the audio file.
+        player.src = url;
+      });
     </script>
   </body>
 </html>
